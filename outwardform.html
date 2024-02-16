@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUTWARD FORM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff; /* blue color */
+            margin-bottom: 20px;
+            font-size: 40px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #007bff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: calc(100% - 22px); /* Adjusting for input padding and border */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding and border are included in width calculation */
+        }
+
+        input[type="submit"] {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: auto;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        select {
+            appearance: none; /* Remove default select arrow */
+        }
+
+        /* Custom select style */
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .custom-select select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        /* Style the arrow inside the select */
+        .select-arrow {
+            position: absolute;
+            top: 14px;
+            right: 10px;
+            pointer-events: none;
+        }
+
+        /* Hide arrow icon in IE */
+        select::-ms-expand {
+            display: none;
+        }
+
+        /* Style selected option */
+        select option:checked {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Style for labels */
+        .inline-labels label {
+            display: inline-block;
+            width: 30%;
+            margin-right: 10px;
+            vertical-align: top;
+        }
+
+        /* Clearfix for label inputs */
+        .inline-labels::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <h2>OUTWARD FORM</h2>
+    <form action="submit_form.php" method="post" id="outwardForm">
+        <label for="organization_name">Organization Name:</label>
+        <input type="text" id="organization_name" name="organization_name"><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address"></textarea><br>
+
+        <label for="eway_bill_number">Eway Bill Number:</label>
+        <input type="text" id="eway_bill_number" name="eway_bill_number"><br>
+
+        <label for="invoice_number">Invoice Number:</label>
+        <input type="text" id="invoice_number" name="invoice_number"><br>
+
+        <label for="delivery_challan_number">Delivery Challan Number:</label>
+        <input type="text" id="delivery_challan_number" name="delivery_challan_number"><br>
+
+        <label for="outward_accessories">Outward Accessories:</label>
+        <div id="accessories_container">
+            <!-- Accessories will be dynamically added here -->
+        </div>
+        <button type="button" onclick="addAccessory()">Add Accessory</button><br><br>
+
+        <label for="calibration_report_number">Calibration Report Number:</label>
+        <input type="text" id="calibration_report_number" name="calibration_report_number"><br>
+
+        <label for="date_of_dispatch">Date Of Dispatch:</label>
+        <input type="date" id="date_of_dispatch" name="date_of_dispatch"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function addAccessory() {
+            var container = document.getElementById("accessories_container");
+            var accessoryInput = document.createElement("input");
+            accessoryInput.type = "text";
+            accessoryInput.name = "accessory[]";
+            accessoryInput.placeholder = "Accessory Name";
+            accessoryInput.required = true;
+            container.appendChild(accessoryInput);
+
+            var quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.name = "quantity[]";
+            quantityInput.placeholder = "Quantity";
+            quantityInput.min = "1";
+            quantityInput.required = true;
+            container.appendChild(quantityInput);
+
+            container.appendChild(document.createElement("br"));
+        }
+    </script>
+</body>
+</html>

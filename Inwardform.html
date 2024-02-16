@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INWARD FORM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff; /* blue color */
+            margin-bottom: 20px;
+            font-size: 40px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #007bff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: calc(100% - 22px); /* Adjusting for input padding and border */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding and border are included in width calculation */
+        }
+
+        input[type="submit"] {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: auto;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        select {
+            appearance: none; /* Remove default select arrow */
+        }
+
+        /* Custom select style */
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .custom-select select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        /* Style the arrow inside the select */
+        .select-arrow {
+            position: absolute;
+            top: 14px;
+            right: 10px;
+            pointer-events: none;
+        }
+
+        /* Hide arrow icon in IE */
+        select::-ms-expand {
+            display: none;
+        }
+
+        /* Style selected option */
+        select option:checked {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Style for labels */
+        .inline-labels label {
+            display: inline-block;
+            width: 30%;
+            margin-right: 10px;
+            vertical-align: top;
+        }
+
+        /* Clearfix for label inputs */
+        .inline-labels::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <h2>INWARD FORM</h2>
+    <form action="submit_form.php" method="post" id="inwardForm">
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" id="customer_name" name="customer_name"><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address"></textarea><br>
+
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number"><br>
+
+        <div class="custom-select">
+            <label for="equipment_name">Equipment Name:</label>
+            <select id="equipment_name" name="equipment_name" onchange="populateModelNumbers()">
+                <option value="ET">DC EARTH RESISTANCE TESTER</option>
+                <option value="IT">INSULATION TESTER</option>
+                <option value="TFR">PREZIOHM TFR</option>
+                <option value="Offline fault locator">OFFLINE FAULT LOCATOR</option>
+                <option value="DC">DC EARTH FAULT LOCATOR</option>
+            </select>
+            <div class="select-arrow">&#9660;</div>
+        </div><br>
+
+        <label for="model_number">Model Number:</label>
+        <select id="model_number" name="model_number">
+            <!-- Options will be dynamically populated based on the selection -->
+        </select><br>
+
+        <label for="serial_number">Serial Number:</label>
+        <input type="text" id="serial_number" name="serial_number"><br>
+
+        <label for="kits_received">Kits Received:</label>
+        <input type="text" id="kits_received" name="kits_received"><br>
+
+        <label for="accessories_received">Accessories Received:</label>
+        <div id="accessories_container">
+            <!-- Accessories will be dynamically added here -->
+        </div>
+        <button type="button" onclick="addAccessory()">Add Accessory</button><br><br>
+
+        <label for="customer_email">Customer Email:</label>
+        <input type="email" id="customer_email" name="customer_email"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function populateModelNumbers() {
+            var equipmentName = document.getElementById("equipment_name").value;
+            var modelNumberSelect = document.getElementById("model_number");
+            modelNumberSelect.innerHTML = ""; // Clear previous options
+
+            switch (equipmentName) {
+                case "ET":
+                    addOption(modelNumberSelect, "ET 46D", "ET 46D");
+                    addOption(modelNumberSelect, "ET 46S", "ET 46S");
+                    break;
+                case "IT":
+                    addOption(modelNumberSelect, "IT 5A10", "IT 5A10");
+                    addOption(modelNumberSelect, "IT 10A10", "IT 10A10");
+                    addOption(modelNumberSelect, "IT 15A10", "IT 15A10");
+                    break;
+                case "TFR":
+                    addOption(modelNumberSelect, "TFR-45hf", "TFR-45hf");
+                    addOption(modelNumberSelect, "TFR-75hf", "TFR-75hf");
+                    break;
+                case "DC":
+                    addOption(modelNumberSelect, "DC 361", "DC 361");
+                    addOption(modelNumberSelect, "DC 361P", "DC 361P");
+                    addOption(modelNumberSelect, "DC 451P", "DC 451P");
+                    break;
+                case "Offline fault locator":
+                    addOption(modelNumberSelect, "MAX 3", "MAX 3");
+                    addOption(modelNumberSelect, "Max SLS", "Max SLS");
+                    addOption(modelNumberSelect, "ACCUMAX", "ACCUMAX");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function addOption(selectElement, text, value) {
+            var option = document.createElement("option");
+            option.textContent = text;
+            option.value = value;
+            selectElement.appendChild(option);
+        }
+
+        function addAccessory() {
+            var container = document.getElementById("accessories_container");
+            var accessoryInput = document.createElement("input");
+            accessoryInput.type = "text";
+            accessoryInput.name = "accessory[]";
+            accessoryInput.placeholder = "Accessory Name";
+            accessoryInput.required = true;
+            container.appendChild(accessoryInput);
+
+            var quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.name = "quantity[]";
+            quantityInput.placeholder = "Quantity";
+            quantityInput.min = "1";
+            quantityInput.required = true;
+            container.appendChild(quantityInput);
+            container.appendChild(document.createElement("br"));
+        }
+
+        // Initial population of model numbers
+        populateModelNumbers();;
+
+    </script>
+</body>
+</html>
+
+           
